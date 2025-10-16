@@ -1,4 +1,4 @@
-qtd_pacientes = 3 #Definir que o programa vai pegar dados de 3 pacientes
+qtd_pacientes = int(input("Digite a quantidade de pacientes: ")) #Definir que o programa vai pegar dados de 3 pacientes
 lista_pacientes = [] #Uma lista para armazenar futuras informações do dicionário
 escolhas = 5 #Defini um loop que irá mostrar os campos de opções para o usuário 5 vezes contendo as informções necessárias
 
@@ -38,30 +38,22 @@ maior_tmb = lista_pacientes[0]["tmb"]
 menor_imc = lista_pacientes[0]["imc"]
 menor_tmb = lista_pacientes[0]["tmb"]
 
-nome_maior_imc = lista_pacientes[0]["nome"]
-nome_maior_tmb = lista_pacientes[0]["nome"]
-nome_menor_imc = lista_pacientes[0]["nome"]
-nome_menor_tmb = lista_pacientes[0]["nome"]
-
-
 for paciente in lista_pacientes: #Um loop para comparar e determinar qual a entrada vai ser o maior ou menor independente da ordem de entrada desses dados
 
+    #* Troquei os ELIFs por IFs pq do jeito que tava antes com elif ele poderia ignorar o "tmb" por exemplo e não registrar caso um pacientes tivesse o maior imc e tmb, ele só salvaria o primeiro, no caso aqui o imc.
+
+    #* Removi os nomes daqui pois não tem necessidade de salvar esses valores aqui.
     if paciente["imc"] > maior_imc: 
-
         maior_imc = paciente["imc"]
-        nome_maior_imc = paciente["nome"]
         
-    elif paciente["tmb"] > maior_tmb:
+    if paciente["tmb"] > maior_tmb:
         maior_tmb = paciente["tmb"]
-        nome_maior_tmb = paciente["nome"]
 
-    elif paciente["imc"] < menor_imc:
+    if paciente["imc"] < menor_imc:
         menor_imc = paciente["imc"]
-        nome_menor_imc = paciente["nome"]
 
-    elif paciente["tmb"] < menor_tmb:
+    if paciente["tmb"] < menor_tmb:
         menor_tmb = paciente["tmb"]
-        nome_menor_tmb = paciente["nome"]
 
 
 for escolha in range(escolhas): #Um loop do painel de escolha para permitir que a pessoa consiga acessar uma ou mais informações de uma vez
@@ -74,36 +66,32 @@ for escolha in range(escolhas): #Um loop do painel de escolha para permitir que 
     print("---> 5 - Encerrar o Programa\n")
 
 
-    escolha = int(input("Escolha uma opção:"))
+    escolha = int(input("Escolha uma opção: "))
 
     if escolha == 1:
-        print(f"Paciente: {nome_maior_imc}, está com {round(maior_imc, 2)} de IMC")
+        #* Apenas uma ideia! Não precisa fazer as verificações e exibir quem tem o maior imc direto na opção.
+
+        # * Esse for aqui é para pegar mais de um paciente com o maior imc ex: se 2 pacientes tiverem 25 de imc ele vai mostrar os 2 (apenas uma correção do que foi pedido no exercicio) 
+
+        # * OBS: vou deixar o bloco de codigo que fiz aqui de exemplo no primeiro IF das escolhas. se achar interessante e que faz sentido para você, faça a mesma coisa nos outros IFs, a logica vai ser a mesma que essa, só vai mudar o que você ta querendo pegar. 
+        if paciente["imc"] > maior_imc: 
+
+            maior_imc = paciente["imc"]
+            nome_maior_imc = paciente["nome"]
+
+            for paciente in pacientes:
+                if paciente["imc"] == maior_imc:
+                    print(f"Nome: {paciente['nome']}, IMC: {paciente['imc']:.2f}")
+
     if escolha == 2:
-        print(f"Paciente: {nome_maior_tmb}, está com: {round(maior_tmb, 2)} de TMB",)
+        print(f"Paciente: {nome_maior_tmb}, está com: {round(maior_tmb, 2)} de TMB")
+
     if escolha == 3:
         print(f"Paciente: {nome_menor_imc}, está com: {round(menor_imc, 2)} de IMC")  
+
     if escolha == 4:
         print(f"Paciente: {nome_menor_tmb}, está com: {round(menor_tmb,2)} de TMB")
+
     if escolha == 5:
         print("Encerrando o programa...")
         break
-
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-    
-
-
-
-    
